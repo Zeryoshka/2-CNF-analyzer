@@ -1,7 +1,7 @@
 from ply.lex import lex
 from ply.yacc import yacc
 
-from bool_primitives import Literal, Clause, ParserCNF
+from boolean.bool_primitives import Literal, Clause, ParserCNF
 
 class Parser:
     tokens = (
@@ -35,8 +35,14 @@ class Parser:
 
     def p_clause(self, p):
         '''clause : LBRACKET literal DISJUNCTION literal RBRACKET
-                  | LBRACKET literal IMPLICATION literal RBRACKET'''
-        if p[2] == '->':
+                  | LBRACKET literal IMPLICATION literal RBRACKET
+                  | literal
+                  | LBRACKET literal RBRACKET'''
+        if len(p) == 4:
+            p[0] = Clause(p[2])
+        elif len(p) == 2:
+            p[0] = Clause(p[1])
+        elif p[3] == '->':
             p[0] = Clause(p[2].negative(), p[4])
         else:
             p[0] = Clause(p[2], p[4])

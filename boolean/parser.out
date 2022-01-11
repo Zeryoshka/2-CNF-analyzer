@@ -1,0 +1,215 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> cnf
+Rule 1     cnf -> clause CONJUNCTION cnf
+Rule 2     cnf -> clause
+Rule 3     clause -> LBRACKET literal DISJUNCTION literal RBRACKET
+Rule 4     clause -> LBRACKET literal IMPLICATION literal RBRACKET
+Rule 5     clause -> literal
+Rule 6     clause -> LBRACKET literal RBRACKET
+Rule 7     literal -> NEGATION VAR
+Rule 8     literal -> VAR
+
+Terminals, with rules where they appear
+
+CONJUNCTION          : 1
+DISJUNCTION          : 3
+IMPLICATION          : 4
+LBRACKET             : 3 4 6
+NEGATION             : 7
+RBRACKET             : 3 4 6
+VAR                  : 7 8
+error                : 
+
+Nonterminals, with rules where they appear
+
+clause               : 1 2
+cnf                  : 1 0
+literal              : 3 3 4 4 5 6
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . cnf
+    (1) cnf -> . clause CONJUNCTION cnf
+    (2) cnf -> . clause
+    (3) clause -> . LBRACKET literal DISJUNCTION literal RBRACKET
+    (4) clause -> . LBRACKET literal IMPLICATION literal RBRACKET
+    (5) clause -> . literal
+    (6) clause -> . LBRACKET literal RBRACKET
+    (7) literal -> . NEGATION VAR
+    (8) literal -> . VAR
+
+    LBRACKET        shift and go to state 3
+    NEGATION        shift and go to state 5
+    VAR             shift and go to state 6
+
+    cnf                            shift and go to state 1
+    clause                         shift and go to state 2
+    literal                        shift and go to state 4
+
+state 1
+
+    (0) S' -> cnf .
+
+
+
+state 2
+
+    (1) cnf -> clause . CONJUNCTION cnf
+    (2) cnf -> clause .
+
+    CONJUNCTION     shift and go to state 7
+    $end            reduce using rule 2 (cnf -> clause .)
+
+
+state 3
+
+    (3) clause -> LBRACKET . literal DISJUNCTION literal RBRACKET
+    (4) clause -> LBRACKET . literal IMPLICATION literal RBRACKET
+    (6) clause -> LBRACKET . literal RBRACKET
+    (7) literal -> . NEGATION VAR
+    (8) literal -> . VAR
+
+    NEGATION        shift and go to state 5
+    VAR             shift and go to state 6
+
+    literal                        shift and go to state 8
+
+state 4
+
+    (5) clause -> literal .
+
+    CONJUNCTION     reduce using rule 5 (clause -> literal .)
+    $end            reduce using rule 5 (clause -> literal .)
+
+
+state 5
+
+    (7) literal -> NEGATION . VAR
+
+    VAR             shift and go to state 9
+
+
+state 6
+
+    (8) literal -> VAR .
+
+    CONJUNCTION     reduce using rule 8 (literal -> VAR .)
+    $end            reduce using rule 8 (literal -> VAR .)
+    DISJUNCTION     reduce using rule 8 (literal -> VAR .)
+    IMPLICATION     reduce using rule 8 (literal -> VAR .)
+    RBRACKET        reduce using rule 8 (literal -> VAR .)
+
+
+state 7
+
+    (1) cnf -> clause CONJUNCTION . cnf
+    (1) cnf -> . clause CONJUNCTION cnf
+    (2) cnf -> . clause
+    (3) clause -> . LBRACKET literal DISJUNCTION literal RBRACKET
+    (4) clause -> . LBRACKET literal IMPLICATION literal RBRACKET
+    (5) clause -> . literal
+    (6) clause -> . LBRACKET literal RBRACKET
+    (7) literal -> . NEGATION VAR
+    (8) literal -> . VAR
+
+    LBRACKET        shift and go to state 3
+    NEGATION        shift and go to state 5
+    VAR             shift and go to state 6
+
+    clause                         shift and go to state 2
+    cnf                            shift and go to state 10
+    literal                        shift and go to state 4
+
+state 8
+
+    (3) clause -> LBRACKET literal . DISJUNCTION literal RBRACKET
+    (4) clause -> LBRACKET literal . IMPLICATION literal RBRACKET
+    (6) clause -> LBRACKET literal . RBRACKET
+
+    DISJUNCTION     shift and go to state 11
+    IMPLICATION     shift and go to state 13
+    RBRACKET        shift and go to state 12
+
+
+state 9
+
+    (7) literal -> NEGATION VAR .
+
+    CONJUNCTION     reduce using rule 7 (literal -> NEGATION VAR .)
+    $end            reduce using rule 7 (literal -> NEGATION VAR .)
+    DISJUNCTION     reduce using rule 7 (literal -> NEGATION VAR .)
+    IMPLICATION     reduce using rule 7 (literal -> NEGATION VAR .)
+    RBRACKET        reduce using rule 7 (literal -> NEGATION VAR .)
+
+
+state 10
+
+    (1) cnf -> clause CONJUNCTION cnf .
+
+    $end            reduce using rule 1 (cnf -> clause CONJUNCTION cnf .)
+
+
+state 11
+
+    (3) clause -> LBRACKET literal DISJUNCTION . literal RBRACKET
+    (7) literal -> . NEGATION VAR
+    (8) literal -> . VAR
+
+    NEGATION        shift and go to state 5
+    VAR             shift and go to state 6
+
+    literal                        shift and go to state 14
+
+state 12
+
+    (6) clause -> LBRACKET literal RBRACKET .
+
+    CONJUNCTION     reduce using rule 6 (clause -> LBRACKET literal RBRACKET .)
+    $end            reduce using rule 6 (clause -> LBRACKET literal RBRACKET .)
+
+
+state 13
+
+    (4) clause -> LBRACKET literal IMPLICATION . literal RBRACKET
+    (7) literal -> . NEGATION VAR
+    (8) literal -> . VAR
+
+    NEGATION        shift and go to state 5
+    VAR             shift and go to state 6
+
+    literal                        shift and go to state 15
+
+state 14
+
+    (3) clause -> LBRACKET literal DISJUNCTION literal . RBRACKET
+
+    RBRACKET        shift and go to state 16
+
+
+state 15
+
+    (4) clause -> LBRACKET literal IMPLICATION literal . RBRACKET
+
+    RBRACKET        shift and go to state 17
+
+
+state 16
+
+    (3) clause -> LBRACKET literal DISJUNCTION literal RBRACKET .
+
+    CONJUNCTION     reduce using rule 3 (clause -> LBRACKET literal DISJUNCTION literal RBRACKET .)
+    $end            reduce using rule 3 (clause -> LBRACKET literal DISJUNCTION literal RBRACKET .)
+
+
+state 17
+
+    (4) clause -> LBRACKET literal IMPLICATION literal RBRACKET .
+
+    CONJUNCTION     reduce using rule 4 (clause -> LBRACKET literal IMPLICATION literal RBRACKET .)
+    $end            reduce using rule 4 (clause -> LBRACKET literal IMPLICATION literal RBRACKET .)
+
